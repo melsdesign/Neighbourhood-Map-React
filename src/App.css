@@ -1,0 +1,126 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+
+.App-intro {
+  font-size: large;
+}
+.menu-btn {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  z-index: 15;
+  left: 10px;
+  top: 80px;
+  font-size: 2.7em;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.menu-btn-hidden {
+  display: none;
+}
+.sidebar {
+  order: 1;
+  width: 20%;
+  padding: 10px;
+  z-index: 10;
+  position: absolute;
+  background-color: gray;
+  opacity: 0.92;
+  height: 100%;
+  transition: transform 0.5s;
+  overflow: scroll;
+  font-size: 0.65em;
+}
+
+.sidebar-expanded {
+  transform: translateX(0px);
+}
+.close-sidebar {
+  float: right;
+  color: #343434;
+  font-size: 2em;
+  padding: 9px;
+  cursor: pointer;
+}
+
+
+.sidebar > div > input {
+  width: 100%;
+  height: 30px;
+  margin-bottom: 20px;
+}
+
+
+.sidebar > div > label {
+  font-size: 1.4em;
+  color: #fff;
+  display: block;
+  width: 100%;
+}
+
+
+.sidebar > div > label,
+.sidebar > div > input,
+.sidebar > ul {
+  position: relative;
+  top: 80px;
+}
+
+
+.sidebar li {
+  font-size: 1.2em;
+  color: #fefefe;
+  line-height: 2.3em;
+}
+
+
+.sidebar li:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.map {
+  order: 2;
+  width: 70%;
+  height: 100%;
+}
+.hints {
+  position: absolute;
+  z-index: 15;
+  top: 100px;
+  left: 20%;
+  width: 260px;
+  height: 160px;
+  padding: 10px;
+  line-height: 1.6em;
+  background-color: #073590;
+  color: #acfb1d;
+  border-radius: 10px;
+  transition: opacity 0.5s;
+}
+
+.hints > ul {
+  list-style-type: none;
+}
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
