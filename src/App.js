@@ -4,6 +4,7 @@ import Map from './MapContainer'
 import Credentials from './FSQCredentials'
 import SideBar from './SideBar'
 import MenuButton from './MenuButton'
+import SearchBar from './SearchBar'
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 const ESCAPE_BUTTON = 27,
@@ -114,9 +115,8 @@ class App extends Component {
       <div className="App">
           <header className="App-header">
           <h1 className="App-title">Larnaca Area</h1>
-        </header>
-         
-           <MenuButton
+           </header>
+         <MenuButton
               onMenClick={this.menuBtnHandler} />
           <SideBar
               onCloseClick={this.closeBtnHandler}
