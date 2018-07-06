@@ -3,7 +3,6 @@ import './App.css';
 import Map from './MapContainer'
 import Credentials from './FSQCredentials'
 import SideBar from './SideBar'
-import KeyboardHints from './KeyboardHints'
 import MenuButton from './MenuButton'
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
@@ -28,11 +27,6 @@ class App extends Component {
           .classList.toggle('menu-btn-hidden')
       }    
     })
-
-     setTimeout(() => {
-      if (document.querySelector('.hints'))
-        document.querySelector('.hints').style.opacity = '0'
-    }, 9500)
 
   // Foursquare api set up
     fetch(`https://api.foursquare.com/v2/venues/explore?ll=34.9003,33.6232&client_id=${Credentials.client_id}&client_secret=${Credentials.client_secret}&v=${Credentials.version_date}`)
@@ -92,14 +86,6 @@ class App extends Component {
 
   }
 
-  sidebarItemFocus = e => {
-    document.querySelector('.menu-btn')
-      .classList.add('menu-btn-hidden')
-
-    document.querySelector('.sidebar')
-      .classList.add('sidebar-expanded')
-  }
-
   
   sidebarItemKeyUp = e => {
     if (e.keyCode === ENTER_BUTTON) {
@@ -108,21 +94,18 @@ class App extends Component {
       })
 
    for (const location of this.state.locations) {
-        if (location.title === e.target.textContent.replace(/- /g, '')) {
+        if (location.title === e.target.textContent) {
           this.setState({ venueInfo: location })
         }
       }  
     }
    }    
-  hintsLoseFocus = e => {
-    e.target.style.display = 'none'
-  }
   
 
   updateQuery = e => {
     this.setState({
       query: e.target.value
-      
+
     })
   }
 
@@ -132,10 +115,8 @@ class App extends Component {
           <header className="App-header">
           <h1 className="App-title">Larnaca Area</h1>
         </header>
-          <div>
-          {/* Display hints if the app loads properly */}
-            {!this.state.fourSquareCrash && <KeyboardHints onFocusLoss={this.hintsLoseFocus} /> }
-          <MenuButton
+         
+           <MenuButton
               onMenClick={this.menuBtnHandler} />
           <SideBar
               onCloseClick={this.closeBtnHandler}
@@ -153,7 +134,6 @@ class App extends Component {
             locations={this.state.locations} />
         </div>
       </div>
-    </div>
     );
   }
   

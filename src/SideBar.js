@@ -6,7 +6,7 @@ import SearchBar from './SearchBar'
 function SideBar(props) {
     return (
       <div className="sidebar">
-        <button onFocus={props.onItemFocus} aria-label="Close sidebar" onClick={props.onCloseClick} className="close-sidebar">X</button>
+        <button aria-label="Close sidebar" onClick={props.onCloseClick} className="close-sidebar">X</button>
         <SearchBar
           onInputClick={props.onInputClick}
           onQueryChange={props.onQueryInput}
@@ -20,7 +20,6 @@ function SideBar(props) {
               <li
                 tabIndex="0"
                 onKeyUp={props.onItemKeyUp}
-                onFocus={props.onItemFocus}
                 onClick={props.onItemClick}
                 key={index}>{'- ' + place.title}</li>
             )
@@ -37,7 +36,6 @@ SideBar.propTypes = {
   onQueryInput: PropTypes.func.isRequired,
   onItemClick: PropTypes.func.isRequired,
   onInputClick: PropTypes.func.isRequired,
-  onItemFocus: PropTypes.func.isRequired,
   onItemKeyUp: PropTypes.func.isRequired
 }
 
