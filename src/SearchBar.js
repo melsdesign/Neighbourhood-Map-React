@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 function SearchBar(props) {
+    //search bar set up
     return (
-      // <label>Search for a place
       <div>
-        <label htmlFor="search-venue">Search a venue</label>
+        <label htmlFor="search-place">Search a place</label>
         <input
           id="search-venue"
           onChange={props.onQueryChange}

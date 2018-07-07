@@ -5,8 +5,10 @@ import Credentials from './FSQCredentials'
 import SideBar from './SideBar'
 import MenuButton from './MenuButton'
 import SearchBar from './SearchBar'
+import Modal from './Modal'
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
+//Keycode for keyboard buttons used in the app
 const ESCAPE_BUTTON = 27,
       ENTER_BUTTON = 13
 
@@ -19,7 +21,7 @@ class App extends Component {
     componentDidMount() {
       document.addEventListener('keyup', e => {
       e.preventDefault()
-
+          //escape button will close the sidebar
       if (e.keyCode === ESCAPE_BUTTON) {
         document.querySelector('.sidebar')
           .classList.toggle('sidebar-expanded')
@@ -54,32 +56,36 @@ class App extends Component {
   }
 
  menuBtnHandler = e => {
-    // Hide hamburger button
+    // Hides menu button
     e.target.classList.add('menu-btn-hidden')
 
-    // Display sidebar
+    // display the sidebar
     document.querySelector('.sidebar')
       .classList.add('sidebar-expanded')
   }
 
-
+    //closes the sidebar
   closeBtnHandler = e => {
     document.querySelector('.sidebar')
       .classList.remove('sidebar-expanded')
-
+     //shows menu button
     document.querySelector('.menu-btn')
       .classList.remove('menu-btn-hidden')
   }
 
   sidebarItemClick = e => {
-    // Eliminate other markers that don't match
+    // removes markers that are not a match
     this.setState({
-      query: e.target.textContent
+      query: e.target.textContent.replace(/- /g, '')
     })
     
+    const modal = document.querySelector('.details-modal')
+    // Search for the clikced location and retrieve the data
     for (const location of this.state.locations) {
-        if (location.title === e.target.value) {
-          this.setState({ venueInfo: location })
+      if (location.title === e.target.textContent.replace(/- /g, '')) {
+        this.setState({ venueInfo: location })
+        modal.style.display = 'block'
+        modal.style.opacity = '1'
         }
       }    
     }
@@ -88,20 +94,32 @@ class App extends Component {
     this.setState({
       query: ''
     })
-   }
+   //pop-up modal when the location is clicked in the search bar
+   const modal = document.querySelector('.details-modal')
 
+    modal.style.opacity = '0'
+
+    setTimeout(() => {
+      modal.style.display = 'none'
+    }, 500)
+  }
   sidebarItemKeyUp = e => {
     if (e.keyCode === ENTER_BUTTON) {
       this.setState({
-        query: e.target.textContent
+        query: e.target.textContent.replace(/- /g, '')
       })
-      for (const location of this.state.locations) {
-        if (location.title === e.target.textContent) {
-          this.setState({ venueInfo: location })
-      }  
-    }
-   }
-  }    
+   } 
+ }
+  //closes the modal
+  modalCloseButton = e => {
+    const modal = document.querySelector('.details-modal')
+
+    modal.style.opacity = '0'
+    setTimeout(() => {
+      modal.style.display = 'none'
+    }, 500)
+  } 
+
 updateQuery = e => {
     this.setState({
       query: e.target.value})
@@ -111,10 +129,15 @@ updateQuery = e => {
     return (
       <div className="App">
           <header className="App-header">
-          <h1 className="App-title">Larnaca Area</h1>
-           </header>
-         <MenuButton
+          <h1 className="App-title">Best Places in Larnaca Area</h1>
+          <p className="credit">Project created with the use of <br /> Google Map's and Foursquare's Data</p>
+          <MenuButton
               onMenClick={this.menuBtnHandler} />
+           </header>
+          <Modal
+              venueInfo={this.state.venueInfo}
+              closeModal={this.modalCloseButton} />
+         
           <SideBar
               onCloseClick={this.closeBtnHandler}
               places={this.state.locations}

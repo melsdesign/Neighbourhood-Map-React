@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import SearchBar from './SearchBar'
+import escaperegexp from 'escape-string-regexp'
 
 
 function SideBar(props) {
+     //Escape RegExp special characters
+  const reg = new RegExp(escaperegexp(props.currentQuery).toLowerCase().trim())
     return (
       <div className="sidebar">
         <button aria-label="Close sidebar" onClick={props.onCloseClick} className="close-sidebar">X</button>
@@ -12,8 +15,9 @@ function SideBar(props) {
           onQueryChange={props.onQueryInput}
           currentVal={props.currentQuery} />
         <ul>
+        {/*filters places by text entered,tests it with regex and than prints it out*/}
           {props.places.filter(place => {
-            return (place.title)
+            return reg.test(place.title.toLowerCase())
           })
           .map((place, index) => {
             return (
