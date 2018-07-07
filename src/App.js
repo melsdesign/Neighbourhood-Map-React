@@ -40,10 +40,8 @@ class App extends Component {
           id: item.venue.id,
           category: item.venue.categories[0].name,
           address: item.venue.location.address,
-          crossStreet: item.venue.location.crossStreet,
           state: item.venue.location.state,
           coordinates: item.venue.location.lat + ', ' + item.venue.location.lng,
-          postalCode: item.venue.location.postalCode
         }
       })
       
@@ -74,40 +72,39 @@ class App extends Component {
   }
 
   sidebarItemClick = e => {
-    // Eliminate other markers that don't match with the string expression
+    // Eliminate other markers that don't match
     this.setState({
       query: e.target.textContent
     })
-  }
+    
+    for (const location of this.state.locations) {
+        if (location.title === e.target.value) {
+          this.setState({ venueInfo: location })
+        }
+      }    
+    }
 
-  sidebarInputClick = e => {
+    sidebarInputClick = e => {
     this.setState({
       query: ''
     })
+   }
 
-  }
-
-  
   sidebarItemKeyUp = e => {
     if (e.keyCode === ENTER_BUTTON) {
       this.setState({
         query: e.target.textContent
       })
-
-   for (const location of this.state.locations) {
+      for (const location of this.state.locations) {
         if (location.title === e.target.textContent) {
           this.setState({ venueInfo: location })
-        }
       }  
     }
-   }    
-  
-
-  updateQuery = e => {
+   }
+  }    
+updateQuery = e => {
     this.setState({
-      query: e.target.value
-
-    })
+      query: e.target.value})
   }
 
   render() {
@@ -134,7 +131,7 @@ class App extends Component {
             locations={this.state.locations} />
         </div>
       </div>
-    );
+    )
   }
   
 }
