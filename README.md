@@ -22,6 +22,8 @@ If you are on a mobile or tablet screen, the list is automatically hidden, and y
 The project can be found on github
 https://github.com/melsdesign/Neighborhood-Map-React
 
+You can run the page live at : https://melsdesign.github.io/Neighbourhood-Map-React/
+
 1. Download this repo
 2. Run: npm install in working directory
 3. Install Dependances (see Dependances)
